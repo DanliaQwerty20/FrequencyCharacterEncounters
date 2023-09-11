@@ -47,4 +47,69 @@ public class FrequencyControllerTest {
                 .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap",
                         Matchers.hasEntry('b', 1)));
     }
+
+    @Test
+    public void calculateFrequencyTestWithSpecialCharacters() throws Exception {
+        String inputString = "!@#$%^&*()_+";
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/frequency")
+                        .param("inputString", inputString))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("frequency-result"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("frequencyMap"))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap",
+                        Matchers.hasEntry('!', 1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap",
+                        Matchers.hasEntry('@', 1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap",
+                        Matchers.hasEntry('#', 1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap",
+                        Matchers.hasEntry('$', 1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap",
+                        Matchers.hasEntry('%', 1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap",
+                        Matchers.hasEntry('^', 1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap",
+                        Matchers.hasEntry('&', 1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap",
+                        Matchers.hasEntry('*', 1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap",
+                        Matchers.hasEntry('(', 1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap",
+                        Matchers.hasEntry(')', 1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap",
+                        Matchers.hasEntry('_', 1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap",
+                        Matchers.hasEntry('+', 1)));
+    }
+
+
+    @Test
+    public void calculateFrequencyInputWithDigitsTest() throws Exception {
+        String inputString = "abcd1234efgh";
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/frequency")
+                        .param("inputString", inputString))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("frequency-result"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("frequencyMap"))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap", Matchers.hasEntry('a', 1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap", Matchers.hasEntry('b', 1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap", Matchers.hasEntry('c', 1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap", Matchers.hasEntry('d', 1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap", Matchers.hasEntry('e', 1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap", Matchers.hasEntry('f', 1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap", Matchers.hasEntry('g', 1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap", Matchers.hasEntry('h', 1)));
+    }
+
+    @Test
+    public void calculateFrequencyEmptyInputTest() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/frequency")
+                        .param("inputString", ""))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("frequency-result"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("frequencyMap"))
+                .andExpect(MockMvcResultMatchers.model().attribute("frequencyMap", Matchers.anEmptyMap()));
+    }
 }

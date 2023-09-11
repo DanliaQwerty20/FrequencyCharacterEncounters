@@ -20,14 +20,8 @@ public class FrequencyController {
 
     @PostMapping
     public String calculateFrequency(@RequestParam("inputString") String inputString, Model model) {
-        // Вычислить частоту символов входной строки
-
         Map<Character, Integer> frequencyMap = calculateCharacterFrequency(inputString);
-
-        // Отсортировать результаты по убыванию значения частоты
         Map<Character, Integer> sortedFrequencyMap = sortFrequencyMap(frequencyMap);
-
-        // Передать результаты в представление
         model.addAttribute("frequencyMap", sortedFrequencyMap);
 
         return "frequency-result";
