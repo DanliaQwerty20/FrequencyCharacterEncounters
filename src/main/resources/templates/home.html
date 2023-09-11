@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Test Job</title>
+</head>
+<body>
+<h1>Welcome to Job...</h1>
+<img th:src="@{/images/Hello.png}" style="height: 100px; width: 100px;"/>
+
+<h2>Calculate Frequency</h2>
+<form method="POST" th:action="@{/frequency}">
+    <div>
+        <label for="inputString">Input String:</label>
+        <input type="text" id="inputString" name="inputString" th:value="${inputString}" required>
+    </div>
+    <br/>
+    <button type="submit">Calculate</button>
+</form>
+</body>
+</html>

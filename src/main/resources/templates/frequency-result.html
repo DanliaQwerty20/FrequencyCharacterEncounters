@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Frequency Result</title>
+</head>
+<body>
+<h1>Frequency Result</h1>
+<table>
+    <tr>
+        <th>Character</th>
+        <th>Frequency</th>
+    </tr>
+    <tr th:each="entry : ${frequencyMap}">
+        <td th:text="${entry.key}"></td>
+        <td th:text="${entry.value}"></td>
+    </tr>
+</table>
+</body>
+</html>
